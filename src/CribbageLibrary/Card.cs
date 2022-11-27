@@ -22,6 +22,23 @@
         public Rank Rank { get; }
 
         public int Value { get; }
+
+        public override string ToString()
+        {
+            return $"{this.Rank}:{this.Suit}";
+        }
+    }
+
+    public readonly struct PlayedCard
+    {
+        public PlayedCard(Card card, bool isDealer)
+        {
+            this.Card = card;
+            this.IsDealer = isDealer;
+        }
+
+        public Card Card { get; }
+        public bool IsDealer { get; }
     }
 
     public static class CardFacts

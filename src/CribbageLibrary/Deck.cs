@@ -4,7 +4,18 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
-    public class Deck
+    public interface IDeck
+    {
+        Card DealRandomCard();
+        ReadOnlyCollection<Card> Cards { get; }
+    }
+
+    public interface IDeckFactory
+    {
+        IDeck CreateDeck();
+    }
+
+    public class Deck : IDeck
     {
         private readonly List<Card> cards;
         private readonly Random random = new(DateTime.UtcNow.Microsecond);
@@ -32,5 +43,13 @@
         }
 
         public ReadOnlyCollection<Card> Cards => this.cards.AsReadOnly();
+    }
+
+    public class DeckFactory : IDeckFactory
+    {
+        public IDeck CreateDeck()
+        {
+            return new Deck();
+        }
     }
 }

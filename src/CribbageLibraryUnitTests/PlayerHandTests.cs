@@ -72,7 +72,7 @@
 
             var toCrib = hand.SendCardsToCrib();
             toCrib.Should().NotBeNull();
-            toCrib.Count.Should().Be(2);
+            toCrib.Count().Should().Be(2);
             hand.Cards.Count.Should().Be(4);
 
             foreach (Card cribCard in toCrib)

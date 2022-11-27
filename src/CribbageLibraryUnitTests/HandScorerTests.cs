@@ -73,5 +73,58 @@
             scoreCard.Flush.Should().BeFalse();
             scoreCard.Score.Should().Be(0);
         }
+
+        [TestMethod]
+        public void CountMultiCardsFifteen()
+        {
+            var hand = new[]
+            {
+                new Card(Rank.Four, Suit.Hearts), new Card(Rank.Three, Suit.Clubs),
+                new Card(Rank.Queen, Suit.Clubs), new Card(Rank.Ace, Suit.Clubs)
+            };
+            var starter = new Card(Rank.King, Suit.Spades);
+
+            var scorer = new HandScorer();
+            var scoreCard = scorer.ScoreHand(hand, starter);
+
+            scoreCard.NumFifteens.Should().Be(2);
+            scoreCard.Score.Should().Be(4);
+        }
+
+        [TestMethod]
+        public void CountAllCardsFifteen()
+        {
+            var hand = new[]
+            {
+                new Card(Rank.Two, Suit.Clubs), new Card(Rank.Five, Suit.Clubs),
+                new Card(Rank.Four, Suit.Hearts), new Card(Rank.Ace, Suit.Hearts)
+            };
+            var starter = new Card(Rank.Three, Suit.Clubs);
+
+            var scorer = new HandScorer();
+            var scoreCard = scorer.ScoreHand(hand, starter);
+
+            scoreCard.NumRuns.Should().Be(1);
+            scoreCard.NumFifteens.Should().Be(1);
+            scoreCard.Score.Should().Be(7);
+        }
+
+        [TestMethod]
+        public void Count24TheHardWay()
+        {
+            var hand = new[]
+            {
+                new Card(Rank.Four, Suit.Diamonds), new Card(Rank.Four, Suit.Clubs),
+                new Card(Rank.Seven, Suit.Clubs), new Card(Rank.Four, Suit.Spades)
+            };
+            var starter = new Card(Rank.Four, Suit.Hearts);
+
+            var scorer = new HandScorer();
+            var scoreCard = scorer.ScoreHand(hand, starter);
+
+            scoreCard.NumPairs.Should().Be(6);
+            scoreCard.NumFifteens.Should().Be(6);
+            scoreCard.Score.Should().Be(24); // 24 the hard way!
+        }
     }
 }

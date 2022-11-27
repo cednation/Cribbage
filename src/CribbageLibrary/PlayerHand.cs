@@ -1,6 +1,19 @@
 ﻿namespace Cribbage
 {
-    public class PlayerHand
+    public interface IPlayerHand
+    {
+        void AddDealtCards(params Card[] cards);
+        IEnumerable<Card> SendCardsToCrib();
+        Card? PlayCard(int runningCount);
+        IReadOnlyList<Card> Cards { get; }
+    }
+
+    public interface IPlayerHandFactory
+    {
+        IPlayerHand CreatePlayerHand();
+    }
+
+    public class PlayerHand : IPlayerHand
     {
         private readonly List<Card> cards = new(capacity: 6);
         private readonly Random random = new(DateTime.UtcNow.Microsecond);
@@ -10,7 +23,7 @@
             this.cards.AddRange(dealtCards);
         }
 
-        public IList<Card> SendCardsToCrib()
+        public IEnumerable<Card> SendCardsToCrib()
         {
             if (this.cards.Count != 6)
                 throw new InvalidOperationException("Player does not have a full hand.");
@@ -62,5 +75,13 @@
         }
 
         public IReadOnlyList<Card> Cards => this.cards.AsReadOnly();
+    }
+
+    public class PlayerHandFactory : IPlayerHandFactory
+    {
+        public IPlayerHand CreatePlayerHand()
+        {
+            return new PlayerHand();
+        }
     }
 }

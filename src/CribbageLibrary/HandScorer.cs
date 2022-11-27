@@ -7,7 +7,7 @@
         private IReadOnlyList<Card>? cards;
         public HandScoreCard scoreCard;
 
-        public HandScoreCard ScoreHand(IList<Card> playerHand, Card starterCard)
+        public HandScoreCard ScoreHand(IReadOnlyList<Card> playerHand, Card starterCard)
         {
             if (playerHand is not { Count: 4 })
                 throw new ArgumentException("Player hand must be 4 cards", nameof(playerHand));
@@ -47,7 +47,8 @@
                     i++;
                     if (fifteenRunningTotal + cardValue == 15)
                         numFifteens++;
-                    else if (fifteenRunningTotal + cardValue * 2 <= 15) // This works because the cards are sorted
+                    // This works because the cards are sorted. The next card is at least this cards value, so if adding that brings total to over 15, do not need to proceed.
+                    else if (fifteenRunningTotal + cardValue * 2 <= 15)
                         CheckForFifteensRecursive(fifteenRunningTotal + cardValue, remainingCards.Skip(i + 1));
                 }
             }
@@ -86,6 +87,8 @@
 
             rankValues.Sort();
 
+            // Runs must be of length 3 or less, so can stop the iteration early
+            // Note it is not possible to have two completely unique runs, because that would require 6 cards
             for (int i = 0; i < rankValues.Count - 2; i++)
             {
                 int doubleRun = 1;
@@ -98,6 +101,9 @@
                 {
                     if (rankValues[j - 1] == rankValues[j])
                     {
+                        // One the first double these two are the same (1+1 or 1*2)
+                        // On the second, we want to know whether this is a triple run, or a double-double
+                        // Those are the only options, as a run needs to be at least length 3 and there are only 5 cards.
                         if (j >= 2 && rankValues[j - 2] == rankValues[j])
                             doubleRun++;
                         else
@@ -113,9 +119,8 @@
 
                 if (runLength >= 3)
                 {
-                    int score = runLength * doubleRun;
                     this.scoreCard.NumRuns = doubleRun;
-                    this.runningTotal += score;
+                    this.runningTotal += runLength * doubleRun;
 
                     // With 5 cards it is only possible to have one unique 3 card or greater run.
                     break;
@@ -128,6 +133,7 @@
             bool handFlush = true;
             Suit handSuit = this.cards![0].Suit;
 
+            // Check the rest of the hand, but not the starter card
             for (int i = 1; i < 4; i++)
             {
                 if (this.cards[i].Suit != handSuit)
@@ -139,6 +145,7 @@
 
             if (handFlush)
             {
+                // We have a flush in the hand, check if the starter is also the same suit.
                 int flushValue = 4;
                 if (this.cards[4].Suit == handSuit)
                     flushValue++;
