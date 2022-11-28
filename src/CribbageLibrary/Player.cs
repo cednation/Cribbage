@@ -48,5 +48,10 @@
             if (this.Score >= 121)
                 this.winningSignal.Signal(this);
         }
+
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }

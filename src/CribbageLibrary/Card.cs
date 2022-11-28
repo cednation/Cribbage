@@ -2,7 +2,7 @@
 {
     using System;
 
-    public readonly struct Card
+    public readonly struct Card : IComparable<Card>
     {
         public Card(Rank rank, Suit suit)
         {
@@ -22,6 +22,20 @@
         public Rank Rank { get; }
 
         public int Value { get; }
+
+        /// <summary>
+        /// Sort first by rank and then by suit.
+        /// </summary>
+        public int CompareTo(Card other)
+        {
+            int order = this.Rank.CompareTo(other.Rank);
+            if (order == 0)
+            {
+                order = this.Suit.CompareTo(other.Suit);
+            }
+
+            return order;
+        }
 
         public override string ToString()
         {

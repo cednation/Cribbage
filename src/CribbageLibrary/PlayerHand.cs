@@ -3,6 +3,7 @@
     public interface IPlayerHand
     {
         void AddDealtCards(params Card[] cards);
+        void AddReturnCardsAfterPlay(IEnumerable<Card> returnedCards);
         IEnumerable<Card> SendCardsToCrib();
         Card? PlayCard(int runningCount);
         IReadOnlyList<Card> Cards { get; }
@@ -21,6 +22,11 @@
         public void AddDealtCards(params Card[] dealtCards)
         {
             this.cards.AddRange(dealtCards);
+        }
+
+        public void AddReturnCardsAfterPlay(IEnumerable<Card> returnedCards)
+        {
+            this.cards.AddRange(returnedCards);
         }
 
         public IEnumerable<Card> SendCardsToCrib()

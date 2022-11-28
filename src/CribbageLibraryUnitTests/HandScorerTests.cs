@@ -15,7 +15,7 @@
             };
             var starter = new Card(Rank.Six, Suit.Hearts);
 
-            var scorer = new HandScorer();
+            var scorer = new PlayerHandScorer();
             var scoreCard = scorer.ScoreHand(hand, starter);
 
             scoreCard.NumFifteens.Should().Be(4);
@@ -34,7 +34,7 @@
             };
             var starter = new Card(Rank.Five, Suit.Spades);
 
-            var scorer = new HandScorer();
+            var scorer = new PlayerHandScorer();
             var scoreCard = scorer.ScoreHand(hand, starter);
 
             scoreCard.NumPairs.Should().Be(6);
@@ -53,7 +53,7 @@
             };
             var starter = new Card(Rank.King, Suit.Hearts);
 
-            var scorer = new HandScorer();
+            var scorer = new PlayerHandScorer();
             var scoreCard = scorer.ScoreHand(hand, starter);
 
             scoreCard.Flush.Should().BeTrue();
@@ -84,7 +84,7 @@
             };
             var starter = new Card(Rank.King, Suit.Spades);
 
-            var scorer = new HandScorer();
+            var scorer = new PlayerHandScorer();
             var scoreCard = scorer.ScoreHand(hand, starter);
 
             scoreCard.NumFifteens.Should().Be(2);
@@ -101,7 +101,7 @@
             };
             var starter = new Card(Rank.Three, Suit.Clubs);
 
-            var scorer = new HandScorer();
+            var scorer = new PlayerHandScorer();
             var scoreCard = scorer.ScoreHand(hand, starter);
 
             scoreCard.NumRuns.Should().Be(1);
@@ -119,12 +119,37 @@
             };
             var starter = new Card(Rank.Four, Suit.Hearts);
 
-            var scorer = new HandScorer();
+            var scorer = new PlayerHandScorer();
             var scoreCard = scorer.ScoreHand(hand, starter);
 
             scoreCard.NumPairs.Should().Be(6);
             scoreCard.NumFifteens.Should().Be(6);
             scoreCard.Score.Should().Be(24); // 24 the hard way!
+        }
+
+        [TestMethod]
+        public void CountCribFlush()
+        {
+            var hand = new[]
+            {
+                new Card(Rank.Ace, Suit.Clubs), new Card(Rank.Queen, Suit.Clubs),
+                new Card(Rank.Two, Suit.Clubs), new Card(Rank.Seven, Suit.Clubs)
+            };
+            var starter = new Card(Rank.King, Suit.Hearts);
+
+            // This is a four card flush, so it will not count for the crib.
+            var scorer = new PlayerHandScorer();
+            var scoreCard = scorer.ScoreHand(hand, starter, crib: true);
+
+            scoreCard.Flush.Should().BeFalse();
+            scoreCard.Score.Should().Be(0);
+
+            // Now change the starter to the same suit. Then we have a crib flush
+            starter = new Card(Rank.King, Suit.Clubs);
+            scoreCard = scorer.ScoreHand(hand, starter, crib: true);
+
+            scoreCard.Flush.Should().BeTrue();
+            scoreCard.Score.Should().Be(5);
         }
     }
 }

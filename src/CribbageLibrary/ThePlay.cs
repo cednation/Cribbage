@@ -11,7 +11,7 @@
         private readonly List<PlayedCard> completePlayedCards = new();
 
         // volatile data as we run the Play
-        private int runningValue;
+        private int runningTotal;
         private readonly List<PlayedCard> playedCards = new();
         private int totalNumPlayedCards;
         private bool dealerTurn;
@@ -25,9 +25,9 @@
 
         public IEnumerable<PlayedCard> PlayedCards => this.completePlayedCards;
 
-        public void Run(ThePlayReport? reporter = null)
+        public void Run(ThePlayReporter? reporter = null)
         {
-            this.runningValue = 0;
+            this.runningTotal = 0;
             this.totalNumPlayedCards = 0;
 
             this.goPlayer = null;
@@ -36,7 +36,7 @@
             while (this.totalNumPlayedCards < 8)
             {
                 IPlayer currentPlayer = dealerTurn ? this.dealer : this.pone;
-                Card? playedCard = currentPlayer.Hand.PlayCard(runningValue);
+                Card? playedCard = currentPlayer.Hand.PlayCard(runningTotal);
 
                 if (playedCard != null)
                 {
@@ -44,16 +44,16 @@
                     this.playedCards.Add(new PlayedCard(playedCard.Value, dealerTurn));
                     this.completePlayedCards.Add(this.playedCards[^1]);
 
-                    runningValue += playedCard.Value.Value;
-                    Debug.Assert(runningValue <= 31, "Player played an illegal card!");
+                    this.runningTotal += playedCard.Value.Value;
+                    Debug.Assert(runningTotal <= 31, "Player played an illegal card!");
 
-                    reporter?.ReportCardPlayed(currentPlayer.Name, playedCard.Value, runningValue);
+                    reporter?.ReportCardPlayed(currentPlayer, playedCard.Value, runningTotal);
 
                     this.CheckForScore(currentPlayer, reporter);
-                    if (runningValue == 31)
+                    if (runningTotal == 31)
                     {
                         currentPlayer.AddScore(2);
-                        reporter?.ReportPlayerScored(currentPlayer.Name, 2, "for 31");
+                        reporter?.ReportPlayerScored(currentPlayer, 2, ThePlayScoreType.ThirtyOne);
 
                         this.ResetCount();
                         continue;
@@ -70,7 +70,7 @@
                     {
                         // last Card
                         currentPlayer.AddScore(1);
-                        reporter?.ReportPlayerScored(currentPlayer.Name, 1, "for last card");
+                        reporter?.ReportPlayerScored(currentPlayer, 1, ThePlayScoreType.LastCard);
                     }
                 }
                 else
@@ -86,7 +86,7 @@
                         // The other player has already said 'go!'
                         // We get a point and reset
                         currentPlayer.AddScore(1);
-                        reporter?.ReportPlayerScored(currentPlayer.Name, 1, "for the Go");
+                        reporter?.ReportPlayerScored(currentPlayer, 1, ThePlayScoreType.Go);
 
                         this.ResetCount();
                     }
@@ -96,19 +96,20 @@
 
         private void ResetCount()
         {
-            this.runningValue = 0;
+            this.runningTotal = 0;
             this.playedCards.Clear();
             this.dealerTurn = !this.dealerTurn;
             this.goPlayer = null;
         }
 
-        private void CheckForScore(IPlayer currentPlayer, ThePlayReport? reporter)
+        private void CheckForScore(IPlayer currentPlayer, ThePlayReporter? reporter)
         {
             // Check for 15
-            if (this.runningValue == 15)
+            if (this.runningTotal == 15)
             {
                 currentPlayer.AddScore(2);
-                reporter?.ReportPlayerScored(currentPlayer.Name, 2, "value is 15");
+
+                reporter?.ReportPlayerScored(currentPlayer, 2, ThePlayScoreType.Fifteen);
             }
 
             // Check for pairs
@@ -133,7 +134,8 @@
 
                 currentPlayer.AddScore(score);
 
-                reporter?.ReportPlayerScored(currentPlayer.Name, score, $"{numRankInRow} {rank}s in a row");
+                var reporterAdditionalInfo = new Tuple<Rank, int>(rank, numRankInRow);
+                reporter?.ReportPlayerScored(currentPlayer, score, ThePlayScoreType.Pair, reporterAdditionalInfo);
             }
 
             // Check for runs
@@ -161,10 +163,7 @@
                         int runCount = remainingCards.Count;
                         currentPlayer.AddScore(runCount);
 
-                        string cardValues = string.Join(' ', remainingCards);
-                        reporter?.ReportPlayerScored(currentPlayer.Name, runCount, $"{runCount} cards in a row: {cardValues}");
-
-                        reporter?.ReportPlayerScored(currentPlayer.Name, runCount, ThePlayReport.ThePlayScoreType.Run, new ThePlayReport.ThePlayRunAdditionalInfo(remainingCards));
+                        reporter?.ReportPlayerScored(currentPlayer, runCount, ThePlayScoreType.Run, (IReadOnlyList<Rank>)remainingCards);
                         break;
                     }
                 }

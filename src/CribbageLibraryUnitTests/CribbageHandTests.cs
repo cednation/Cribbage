@@ -3,6 +3,7 @@
     using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
+    using Cribbage.Reporting;
     using FluentAssertions;
     using Moq;
 
@@ -30,8 +31,9 @@
             mockPoneFactory.Setup(x => x.CreatePlayerHand()).Returns(mockPoneHand);
             var pone = new Player("pone", mockPoneFactory.Object);
 
+            var handReporter = new HandReporter(new ThePlayReporter());
             var hand = new CribbageHand(dealer, pone, mockDeck);
-            hand.Run();
+            hand.Run(handReporter);
 
             mockDealerHand.Cards.Select(c => c.Value).Should().BeEquivalentTo(new[] { 5, 5, 3, 7 });
             hand.Crib.Select(c => (int)c.Rank).Should().BeEquivalentTo(new[] { 6, 9, 12, 13 });
@@ -101,6 +103,11 @@
             public void AddDealtCards(params Card[] cards)
             {
                 this.handCards.AddRange(cards);
+            }
+
+            public void AddReturnCardsAfterPlay(IEnumerable<Card> returnedCards)
+            {
+                this.handCards.AddRange(returnedCards);
             }
 
             public IEnumerable<Card> SendCardsToCrib()

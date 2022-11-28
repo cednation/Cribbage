@@ -2,6 +2,7 @@
 {
     using System.Collections.ObjectModel;
     using System.Diagnostics.CodeAnalysis;
+    using Cribbage.Reporting;
     using FluentAssertions;
     using Moq;
 
@@ -33,11 +34,12 @@
             var deckFactory = new Mock<IDeckFactory>();
             deckFactory.Setup(x => x.CreateDeck()).Returns(deck);
 
+            var reporter = new GameReporter();
             var game = new CribbageGame(player1, player2, deckFactory.Object);
-            game.Play();
+            game.Play(reporter);
 
-            game.winningPlayer.Should().NotBeNull();
-            game.winningPlayer!.Name.Should().Be("player1");
+            game.WinningPlayer.Should().NotBeNull();
+            game.WinningPlayer!.Name.Should().Be("player1");
             game.NumHands.Should().Be(5);
             player1.Score.Should().Be(135);
             player2.Score.Should().Be(113);
@@ -56,6 +58,11 @@
             }
 
             public void AddDealtCards(params Card[] cards)
+            {
+                // Ignore
+            }
+
+            public void AddReturnCardsAfterPlay(IEnumerable<Card> returnedCards)
             {
                 // Ignore
             }

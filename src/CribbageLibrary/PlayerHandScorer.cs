@@ -1,13 +1,13 @@
 ﻿namespace Cribbage
 {
     #nullable enable
-    public class HandScorer
+    public class PlayerHandScorer
     {
         private int runningTotal;
         private IReadOnlyList<Card>? cards;
-        public HandScoreCard scoreCard;
+        public PlayerHandScoreCard scoreCard;
 
-        public HandScoreCard ScoreHand(IReadOnlyList<Card> playerHand, Card starterCard)
+        public PlayerHandScoreCard ScoreHand(IReadOnlyList<Card> playerHand, Card starterCard, bool crib = false)
         {
             if (playerHand is not { Count: 4 })
                 throw new ArgumentException("Player hand must be 4 cards", nameof(playerHand));
@@ -18,12 +18,17 @@
 
             this.cards = cardsToScore;
             this.runningTotal = 0;
-            this.scoreCard = new HandScoreCard();
+            this.scoreCard = new PlayerHandScoreCard();
+
+            var sortedHand = new List<Card>(playerHand);
+            sortedHand.Sort();
+            this.scoreCard.SortedHand = sortedHand;
+            this.scoreCard.StarterCard = starterCard;
 
             this.CheckForFifteens();
             this.CheckForPairs();
             this.CheckForRuns();
-            this.CheckForFlush();
+            this.CheckForFlush(crib);
             this.CheckForRightJack();
 
             this.scoreCard.Score = this.runningTotal;
@@ -120,6 +125,7 @@
                 if (runLength >= 3)
                 {
                     this.scoreCard.NumRuns = doubleRun;
+                    this.scoreCard.RunsPoints = runLength * doubleRun;
                     this.runningTotal += runLength * doubleRun;
 
                     // With 5 cards it is only possible to have one unique 3 card or greater run.
@@ -128,10 +134,11 @@
             }
         }
 
-        private void CheckForFlush()
+        private void CheckForFlush(bool crib)
         {
             bool handFlush = true;
             Suit handSuit = this.cards![0].Suit;
+            int flushValue = 4;
 
             // Check the rest of the hand, but not the starter card
             for (int i = 1; i < 4; i++)
@@ -146,11 +153,20 @@
             if (handFlush)
             {
                 // We have a flush in the hand, check if the starter is also the same suit.
-                int flushValue = 4;
                 if (this.cards[4].Suit == handSuit)
                     flushValue++;
+            }
 
+            // Flush in crib is only scored if all 5 cards are same suit
+            if (crib && handFlush && flushValue < 5)
+            {
+                handFlush = false;
+            }
+
+            if (handFlush)
+            {
                 this.scoreCard.Flush = true;
+                this.scoreCard.FlushPoints = flushValue;
                 this.runningTotal += flushValue;
             }
         }

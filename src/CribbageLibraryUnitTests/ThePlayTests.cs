@@ -30,7 +30,7 @@
             // Pone score: 5->9->17
             // Dealer score: 4->9->10
 
-            var reporter = new ThePlayReport();
+            var reporter = new ThePlayReporter();
             var thePlay = new ThePlay(pone.Object, dealer.Object);
             thePlay.Run(reporter);
 
@@ -151,6 +151,11 @@
             }
 
             public void AddDealtCards(params Card[] cards)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void AddReturnCardsAfterPlay(IEnumerable<Card> returnedCards)
             {
                 throw new NotImplementedException();
             }
