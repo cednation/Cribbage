@@ -150,7 +150,7 @@
                 this.hand = new List<Card>(hand);
             }
 
-            public void AddDealtCards(params Card[] cards)
+            public void AddDealtCards(params Card[] dealtCards)
             {
                 throw new NotImplementedException();
             }

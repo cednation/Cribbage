@@ -110,9 +110,9 @@
                         // On the second, we want to know whether this is a triple run, or a double-double
                         // Those are the only options, as a run needs to be at least length 3 and there are only 5 cards.
                         if (j >= 2 && rankValues[j - 2] == rankValues[j])
-                            doubleRun++;
+                            doubleRun++; // triple run
                         else
-                            doubleRun *= 2;
+                            doubleRun *= 2; // double or quadruple run
                     }
                     else
                     {
@@ -128,7 +128,7 @@
                     this.scoreCard.RunsPoints = runLength * doubleRun;
                     this.runningTotal += runLength * doubleRun;
 
-                    // With 5 cards it is only possible to have one unique 3 card or greater run.
+                    // With 5 cards it is only possible to have one unique 3 card or greater run, so can exit loop early.
                     break;
                 }
             }

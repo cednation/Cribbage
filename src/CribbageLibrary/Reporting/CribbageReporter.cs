@@ -1,6 +1,5 @@
 ﻿namespace Cribbage.Reporting
 {
-    using System.Net.Mime;
     using System.Text;
 
     public abstract class CribbageReporter
@@ -23,9 +22,21 @@
     {
         public void ReportCardPlayed(IPlayer player, Card card, int runningTotal)
         {
-            string textMessage = $"Player {player.Name} plays card {card}. Running total: {runningTotal}";
+            string textMessage = $"{player.Name} plays card {card} Running total: {runningTotal}";
             var e = new PlayCardEvent(player, card, runningTotal, textMessage);
 
+            base.ReportCribbageEvent(e);
+        }
+
+        public void ReportSayGo(IPlayer goPlayer, int runningTotal)
+        {
+            int minimumValue = 31 - runningTotal;
+            string minimumValueText = minimumValue == 1 ? "Ace" : minimumValue.ToString();
+            bool hasNoCards = goPlayer.Hand.Cards.Count == 0;
+            string reason = hasNoCards ? "has no more cards" : $"does not have a(n) {minimumValueText} or less";
+            string textMessage = $"{goPlayer.Name} says Go! He/She {reason}";
+
+            var e = new SayGoEvent(goPlayer, runningTotal, textMessage);
             base.ReportCribbageEvent(e);
         }
 
@@ -44,7 +55,7 @@
             string MakeTextMessage(string reason)
             {
                 string pointsText = score == 1 ? "point" : "points";
-                return $"Player {player.Name} scored {score} {pointsText} {reason}";
+                return $"{player.Name} scored {score} {pointsText} {reason}";
             }
 
             ScorePlayPointsEvent e;
@@ -106,7 +117,7 @@
             sortedHand.Sort();
 
             string sortedHandMessage = string.Join(' ', sortedHand);
-            string textMessage = $"Player {player.Name} dealt cards: {sortedHandMessage}";
+            string textMessage = $"{player.Name} dealt hand: {sortedHandMessage}";
             var e = new DealtCardsEvent(player, hand, textMessage);
 
             base.ReportCribbageEvent(e);
@@ -119,7 +130,7 @@
 
             string sortedHandMessage = string.Join(' ', sortedCards);
             string cribOwnershipMessage = ownCrib ? "his/her crib" : "opponent's crib";
-            string textMessage = $"Player {player.Name} throws cards {sortedHandMessage} into {cribOwnershipMessage}";
+            string textMessage = $"{player.Name} throws cards {sortedHandMessage} into {cribOwnershipMessage}";
 
             var e = new SendCardsToCribEvent(player, cards, textMessage);
             base.ReportCribbageEvent(e);
@@ -135,7 +146,7 @@
 
         public void Report2ForHeels(IPlayer dealer)
         {
-            string textMessage = $"Player {dealer.Name} scores 2 points for his heels";
+            string textMessage = $"{dealer.Name} scores 2 points for his heels";
             var e = new ScorePlayPointsEvent(dealer, 2, ThePlayScoreType.JackStarterCut, textMessage);
 
             base.ReportCribbageEvent(e);
@@ -144,44 +155,46 @@
         public void ReportHandScored(IPlayer player, bool isCrib, PlayerHandScoreCard scoreCard)
         {
             string handOrCrib = isCrib ? "crib" : "hand";
-            string textMessage = $"Player {player.Name} {handOrCrib} scored {scoreCard.Score} point(s)";
+            string textMessage = $"{player.Name} {handOrCrib} scored {scoreCard.Score} point(s)";
             
             StringBuilder textBuilder = new StringBuilder();
             textBuilder.AppendLine(textMessage);
             textBuilder.AppendLine(); // empty line
 
             string hand = string.Join(' ', scoreCard.SortedHand);
+            textBuilder.Append('\t');
             textBuilder.AppendLine(hand);
+            textBuilder.Append('\t');
             textBuilder.AppendLine(scoreCard.StarterCard.ToString());
             textBuilder.AppendLine(); // empty line
 
             if (scoreCard.NumFifteens > 0)
             {
-                textMessage = $"Points for 15s: {scoreCard.NumFifteens * 2}";
+                textMessage = $"\tPoints for 15s: {scoreCard.NumFifteens * 2}";
                 textBuilder.AppendLine(textMessage);
             }
 
             if (scoreCard.NumPairs > 0)
             {
-                textMessage = $"Points for pairs: {scoreCard.NumPairs * 2}";
+                textMessage = $"\tPoints for pairs: {scoreCard.NumPairs * 2}";
                 textBuilder.AppendLine(textMessage);
             }
 
             if (scoreCard.NumRuns > 0)
             {
-                textMessage = $"{scoreCard.NumRuns} run(s) for a total of {scoreCard.RunsPoints} points";
+                textMessage = $"\t{scoreCard.NumRuns} run(s) for a total of {scoreCard.RunsPoints} points";
                 textBuilder.AppendLine(textMessage);
             }
 
             if (scoreCard.Flush)
             {
-                textMessage = $"{scoreCard.FlushPoints} points for the flush";
+                textMessage = $"\t{scoreCard.FlushPoints} points for the flush";
                 textBuilder.AppendLine(textMessage);
             }
 
             if (scoreCard.RightJack)
             {
-                textMessage = "1 point for the right Jack";
+                textMessage = "\t1 point for the right Jack";
                 textBuilder.AppendLine(textMessage);
             }
 
@@ -206,6 +219,14 @@
             string textMessage = $"A new cribbage game begins between {player1.Name} and {player2.Name}";
 
             var e = new BeginSectionEvent(textMessage);
+            base.ReportCribbageEvent(e);
+        }
+
+        public void ReportCutForDeal(IPlayer cutWinner, Rank cutWinnerRank, Rank cutLoserRank)
+        {
+            string textMessage = $"{cutWinner.Name} wins the deal with a cut of {cutWinnerRank} vs {cutLoserRank}";
+
+            var e = new CutForDealEvent(cutWinner, cutWinnerRank, cutLoserRank, textMessage);
             base.ReportCribbageEvent(e);
         }
 

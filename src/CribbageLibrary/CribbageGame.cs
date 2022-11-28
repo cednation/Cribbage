@@ -4,6 +4,13 @@
 
     public class CribbageGame
     {
+        public enum FirstDealerChoice
+        {
+            FirstPlayer,
+            SecondPlayer,
+            CutForDeal
+        }
+
         protected readonly IDeckFactory deckFactory;
 
         public IPlayer FirstPlayer { get; }
@@ -18,14 +25,28 @@
             this.deckFactory = deckFactory;
         }
 
-        public void Play(GameReporter? reporter = null)
+        public void Play(FirstDealerChoice dealerChoice = FirstDealerChoice.FirstPlayer, GameReporter? reporter = null)
         {
-            bool firstPlayerDealer = false;
-            var gameWinningSignal = new GameWinningSignal();
+            reporter?.ReportBeginGame(this.FirstPlayer, this.SecondPlayer);
+
+            bool firstPlayerDealer;
+            switch (dealerChoice)
+            {
+                case FirstDealerChoice.FirstPlayer:
+                    firstPlayerDealer = true;
+                    break;
+                case FirstDealerChoice.SecondPlayer:
+                    firstPlayerDealer = false;
+                    break;
+                case FirstDealerChoice.CutForDeal:
+                default:
+                    firstPlayerDealer = this.CutForDeal(reporter);
+                    break;
+            }
+
+            var gameWinningSignal = new GameWinningSignalSource();
             this.FirstPlayer.SetWinningSignalSource(gameWinningSignal);
             this.SecondPlayer.SetWinningSignalSource(gameWinningSignal);
-
-            reporter?.ReportBeginGame(this.FirstPlayer, this.SecondPlayer);
 
             try
             {
@@ -42,11 +63,38 @@
                     firstPlayerDealer = !firstPlayerDealer;
                 }
             }
-            catch (GameWinningSignalException)
+            catch (GameWinningSignalException ex)
             {
-                this.WinningPlayer = gameWinningSignal.WinningPlayer!;
+                this.WinningPlayer = ex.WinningPlayer;
                 var losingPlayer = object.Equals(this.WinningPlayer, this.FirstPlayer) ? this.SecondPlayer : this.FirstPlayer;
                 reporter?.ReportGameWinner(this.WinningPlayer, 121 - losingPlayer.Score);
+            }
+        }
+
+        private bool CutForDeal(GameReporter? reporter)
+        {
+            while (true)
+            {
+                var cutDeck = this.deckFactory.CreateDeck();
+                var firstPlayerCutCard = cutDeck.DealRandomCard();
+                var secondPlayerCutCard = cutDeck.DealRandomCard();
+
+                if (firstPlayerCutCard.Rank != secondPlayerCutCard.Rank)
+                {
+                    bool firstPlayerDealer = firstPlayerCutCard.Rank < secondPlayerCutCard.Rank;
+
+                    if (reporter != null)
+                    {
+                        var cutWinner = firstPlayerDealer ? this.FirstPlayer : this.SecondPlayer;
+                        Rank winRank = firstPlayerDealer ? firstPlayerCutCard.Rank : secondPlayerCutCard.Rank;
+                        Rank loseRank = firstPlayerDealer ? secondPlayerCutCard.Rank : firstPlayerCutCard.Rank;
+
+                        reporter.ReportCutForDeal(cutWinner, winRank, loseRank);
+                    }
+
+                    return firstPlayerDealer;
+                }
+                // else shuffle and cut again!
             }
         }
     }

@@ -7,24 +7,26 @@
         int Score { get; }
 
         void ResetHand();
-        void SetWinningSignalSource(IGameWinningSignal winningSignalSource);
+        void SetWinningSignalSource(IGameWinningSignalSource winningSignalSourceSource);
         void AddScore(int points);
     }
 
     public class Player : IPlayer
     {
         private readonly IPlayerHandFactory playerHandFactory;
-        private IGameWinningSignal winningSignal;
+        private IGameWinningSignalSource? winningSignalSource;
 
         public string Name { get; }
         public IPlayerHand Hand { get; protected set; }
         public int Score { get; protected set; }
 
-        public Player(string name, IPlayerHandFactory factory, IGameWinningSignal? winningSignal = null)
+        public Player(string name, IPlayerHandFactory factory)
         {
-            this.Name = name ?? throw new ArgumentNullException(nameof(name));
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Not a valid player name", nameof(name));
+
+            this.Name = name;
             this.playerHandFactory = factory ?? throw new ArgumentNullException(nameof(factory));
-            this.winningSignal = winningSignal ?? new DummyGameWinningSignal();
             this.Score = 0;
 
             this.Hand = this.playerHandFactory.CreatePlayerHand();
@@ -35,9 +37,9 @@
             this.Hand = this.playerHandFactory.CreatePlayerHand();
         }
 
-        public void SetWinningSignalSource(IGameWinningSignal winningSignalSource)
+        public void SetWinningSignalSource(IGameWinningSignalSource winningSignalSourceSource)
         {
-            this.winningSignal = winningSignalSource;
+            this.winningSignalSource = winningSignalSourceSource;
         }
 
         public void AddScore(int points)
@@ -45,8 +47,8 @@
             this.Score += points;
 
             // Did we win?
-            if (this.Score >= 121)
-                this.winningSignal.Signal(this);
+            if (this.Score >= 121 && this.winningSignalSource != null)
+                this.winningSignalSource.Signal(this);
         }
 
         public override string ToString()

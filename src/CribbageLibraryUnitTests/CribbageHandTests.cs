@@ -93,16 +93,16 @@
                 return card;
             }
 
-            public ReadOnlyCollection<Card> Cards => poneCards.Concat(dealerCards).Concat(cribCards).ToList().AsReadOnly();
+            public IReadOnlyList<Card> Cards => poneCards.Concat(dealerCards).Concat(cribCards).ToList().AsReadOnly();
         }
 
         private class MockPlayerHand : IPlayerHand
         {
             private readonly List<Card> handCards = new();
 
-            public void AddDealtCards(params Card[] cards)
+            public void AddDealtCards(params Card[] dealtCards)
             {
-                this.handCards.AddRange(cards);
+                this.handCards.AddRange(dealtCards);
             }
 
             public void AddReturnCardsAfterPlay(IEnumerable<Card> returnedCards)

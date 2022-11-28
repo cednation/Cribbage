@@ -29,13 +29,13 @@
             this.Dealer = dealer;
             this.Pone = pone;
             this.deck = deck;
-
-            this.Dealer.ResetHand();
-            this.Pone.ResetHand();
         }
 
         public void Run(HandReporter? reporter = null)
         {
+            this.Dealer.ResetHand();
+            this.Pone.ResetHand();
+
             // Shuffle deck and deal
             for (int i = 0; i < 12; i++)
             {
@@ -61,8 +61,8 @@
             reporter?.ReportStarterCardCut(starter);
             if (starter.Rank == Rank.Jack)
             {
-                this.Dealer.AddScore(2); // 2 for his heels!
                 reporter?.Report2ForHeels(this.Dealer);
+                this.Dealer.AddScore(2); // 2 for his heels!
             }
 
             // Now the play
@@ -76,16 +76,16 @@
             // Now count hands, starting with the pone
             var scorer = new PlayerHandScorer();
             var scoreCard = scorer.ScoreHand(this.Pone.Hand.Cards, starter);
-            this.Pone.AddScore(scoreCard.Score);
             reporter?.ReportHandScored(this.Pone, isCrib: false, scoreCard);
+            this.Pone.AddScore(scoreCard.Score);
 
             scoreCard = scorer.ScoreHand(this.Dealer.Hand.Cards, starter);
-            this.Dealer.AddScore(scoreCard.Score);
             reporter?.ReportHandScored(this.Dealer, isCrib: false, scoreCard);
+            this.Dealer.AddScore(scoreCard.Score);
 
             scoreCard = scorer.ScoreHand(this.crib, starter, crib: true);
-            this.Dealer.AddScore(scoreCard.Score);
             reporter?.ReportHandScored(this.Dealer, isCrib: true, scoreCard);
+            this.Dealer.AddScore(scoreCard.Score);
         }
     } 
 }

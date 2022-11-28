@@ -2,12 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
+    using System.Diagnostics;
 
     public interface IDeck
     {
         Card DealRandomCard();
-        ReadOnlyCollection<Card> Cards { get; }
+        IReadOnlyList<Card> Cards { get; }
     }
 
     public interface IDeckFactory
@@ -31,6 +31,8 @@
                     this.cards.Add(new Card(r, s));
                 }
             }
+
+            Debug.Assert(this.cards.Count == 52);
         }
 
         public Card DealRandomCard()
@@ -42,7 +44,7 @@
             return randomCard;
         }
 
-        public ReadOnlyCollection<Card> Cards => this.cards.AsReadOnly();
+        public IReadOnlyList<Card> Cards => this.cards.AsReadOnly();
     }
 
     public class DeckFactory : IDeckFactory

@@ -2,7 +2,7 @@
 {
     public interface IPlayerHand
     {
-        void AddDealtCards(params Card[] cards);
+        void AddDealtCards(params Card[] dealtCards);
         void AddReturnCardsAfterPlay(IEnumerable<Card> returnedCards);
         IEnumerable<Card> SendCardsToCrib();
         Card? PlayCard(int runningCount);

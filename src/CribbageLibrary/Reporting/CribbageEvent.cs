@@ -26,11 +26,13 @@
         SendCardsToCrib,
         StarterCardCut,
         PlayCard,
+        SayGo,
         ScorePointsPlay,
         CountHand,
         CountCrib,
         WonGame,
-        BeginSection
+        BeginSection,
+        CutForDeal
     }
 
     public class BeginSectionEvent : CribbageEvent
@@ -38,6 +40,20 @@
         public BeginSectionEvent(string textMessage)
             : base(CribbageEventType.BeginSection, textMessage)
         {
+        }
+    }
+
+    public class CutForDealEvent : CribbageEvent
+    {
+        public new IPlayer Player => base.Player!;
+        public Rank WinningCut { get; }
+        public Rank LosingCut { get; }
+
+        public CutForDealEvent(IPlayer cutWinner, Rank cutWinnerRank, Rank cutLoserRank, string textMessage)
+            : base(CribbageEventType.CutForDeal, textMessage, cutWinner)
+        {
+            this.WinningCut = cutWinnerRank;
+            this.LosingCut = cutLoserRank;
         }
     }
 
@@ -113,6 +129,18 @@
             : base(CribbageEventType.PlayCard, textMessage, player)
         {
             this.PlayedCard = playedCard;
+            this.RunningTotal = runningTotal;
+        }
+    }
+
+    public class SayGoEvent : CribbageEvent
+    {
+        public new IPlayer Player => base.Player!;
+        public int RunningTotal { get; }
+
+        public SayGoEvent(IPlayer goPlayer, int runningTotal, string textMessage)
+            : base(CribbageEventType.SayGo, textMessage, goPlayer)
+        {
             this.RunningTotal = runningTotal;
         }
     }

@@ -14,7 +14,19 @@
 
             this.Rank = rank;
             this.Suit = suit;
-            this.Value = CardFacts.ConvertRankToValue(rank);
+            this.Value = ConvertRankToValue(rank);
+        }
+
+        public static int ConvertRankToValue(Rank rank)
+        {
+            if (!Enum.IsDefined(rank))
+                throw new ArgumentOutOfRangeException(nameof(rank), rank, "Rank parameter is not valid");
+
+            int value = (int)rank;
+            if (value > 10)
+                value = 10;
+
+            return value;
         }
 
         public Suit Suit { get; }
@@ -53,30 +65,6 @@
 
         public Card Card { get; }
         public bool IsDealer { get; }
-    }
-
-    public static class CardFacts
-    {
-        public static bool IsFaceCard(Rank rank)
-        {
-            if (!Enum.IsDefined(rank))
-                throw new ArgumentOutOfRangeException(nameof(rank), rank, "Rank parameter is not valid");
-
-            int value = (int)rank;
-            return value > 10;
-        }
-
-        public static int ConvertRankToValue(Rank rank)
-        {
-            if (!Enum.IsDefined(rank))
-                throw new ArgumentOutOfRangeException(nameof(rank), rank, "Rank parameter is not valid");
-
-            int value = (int)rank;
-            if (value > 10)
-                value = 10;
-
-            return value;
-        }
     }
 
     public enum Suit

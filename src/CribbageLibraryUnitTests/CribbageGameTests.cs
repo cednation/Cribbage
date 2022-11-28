@@ -36,13 +36,74 @@
 
             var reporter = new GameReporter();
             var game = new CribbageGame(player1, player2, deckFactory.Object);
-            game.Play(reporter);
+            game.Play(CribbageGame.FirstDealerChoice.SecondPlayer, reporter);
 
             game.WinningPlayer.Should().NotBeNull();
             game.WinningPlayer!.Name.Should().Be("player1");
             game.NumHands.Should().Be(5);
             player1.Score.Should().Be(135);
             player2.Score.Should().Be(113);
+        }
+
+        [TestMethod]
+        public void CribbageGameCutForDeal()
+        {
+            int drawCardNum = 1;
+            var mockDeck = new Mock<IDeck>();
+
+            // first time will be a draw, so cut again!
+            mockDeck.Setup(x => x.DealRandomCard()).Returns(() =>
+                {
+                    Card c = drawCardNum switch
+                    {
+                        1 => new Card(Rank.Eight, (Suit)drawCardNum),
+                        2 => new Card(Rank.Eight, (Suit)drawCardNum),
+                        3 => new Card(Rank.Ace, Suit.Hearts),
+                        4 => new Card(Rank.Jack, Suit.Diamonds),
+                        _ => throw new InternalTestFailureException("The second cut for deal should end the cutting")
+                    };
+
+                    drawCardNum++;
+                    return c;
+                });
+
+            var mockDeckFactory = new Mock<IDeckFactory>();
+            mockDeckFactory.Setup(x => x.CreateDeck()).Returns(mockDeck.Object);
+
+            var player1 = new Mock<IPlayer>();
+            player1.SetupGet(x => x.Name).Returns("P1");
+            player1.Setup(x => x.ResetHand()).Throws(new GameWinningSignalException(player1.Object));
+
+            var player2 = new Mock<IPlayer>();
+            player2.SetupGet(x => x.Name).Returns("P1");
+            player2.Setup(x => x.ResetHand()).Throws(new GameWinningSignalException(player2.Object));
+
+            bool cutWinnerFound = false;
+            var reporter = new GameReporter();
+            reporter.CribbageEventNotification += (r, e) =>
+            {
+                if (e.EventType == CribbageEventType.CutForDeal)
+                {
+                    var cutEvent = (CutForDealEvent)e;
+                    cutWinnerFound = true;
+                    var cutWinner = cutEvent.Player;
+                    cutEvent.WinningCut.Should().Be(Rank.Ace);
+                    cutEvent.LosingCut.Should().Be(Rank.Jack);
+
+                    // Assuming first player cut first, then first player won the cut.
+                    cutWinner.Should().Be(player1.Object);
+                }
+            }; 
+
+            var game = new CribbageGame(player1.Object, player2.Object, mockDeckFactory.Object);
+            game.Play(CribbageGame.FirstDealerChoice.CutForDeal, reporter);
+
+            // Verify the reporter event notification was hit.
+            cutWinnerFound.Should().BeTrue();
+
+            // winning signal should have happened right away
+            game.NumHands.Should().Be(1);
+            mockDeckFactory.Verify(x => x.CreateDeck(), Times.AtLeast(3)); // 2 for cut, then at least one more for the game
         }
 
         private class MockPlayerHand : IPlayerHand
@@ -57,7 +118,7 @@
                 this.crib = crib;
             }
 
-            public void AddDealtCards(params Card[] cards)
+            public void AddDealtCards(params Card[] dealtCards)
             {
                 // Ignore
             }
@@ -107,7 +168,7 @@
             }
 
             // This is not used so ok to do anything
-            public ReadOnlyCollection<Card> Cards => throw new NotSupportedException();
+            public IReadOnlyList<Card> Cards => throw new NotSupportedException();
         }
     }
 }

@@ -1,0 +1,503 @@
+A new cribbage game begins between Alan and Bob
+Alan wins the deal with a cut of Eight vs Nine
+Hand 1 begins with Alan as the dealer
+Bob dealt hand: Three:Diamonds Four:Hearts Four:Spades Five:Diamonds Queen:Clubs King:Clubs
+Alan dealt hand: Ace:Diamonds Ace:Clubs Four:Diamonds Seven:Spades Ten:Clubs Queen:Spades
+Bob throws cards Four:Hearts Four:Spades into opponent's crib
+Alan throws cards Ace:Diamonds Queen:Spades into his/her crib
+Starter card Three:Clubs is cut
+Bob plays card Three:Diamonds Running total: 3
+Alan plays card Ten:Clubs Running total: 13
+Bob plays card Queen:Clubs Running total: 23
+Alan plays card Seven:Spades Running total: 30
+Bob says Go! He/She does not have a(n) Ace or less
+Alan plays card Ace:Clubs Running total: 31
+Alan scored 2 points for reaching 31
+Bob plays card King:Clubs Running total: 10
+Alan plays card Four:Diamonds Running total: 14
+Bob plays card Five:Diamonds Running total: 19
+Bob scored 1 point for the last card
+Bob hand scored 6 point(s)
+
+	Three:Diamonds Five:Diamonds Queen:Clubs King:Clubs
+	Three:Clubs
+
+	Points for 15s: 4
+	Points for pairs: 2
+
+Alan hand scored 4 point(s)
+
+	Ace:Clubs Four:Diamonds Seven:Spades Ten:Clubs
+	Three:Clubs
+
+	Points for 15s: 4
+
+Alan crib scored 6 point(s)
+
+	Ace:Diamonds Four:Hearts Four:Spades Queen:Spades
+	Three:Clubs
+
+	Points for 15s: 4
+	Points for pairs: 2
+
+Hand 2 begins with Bob as the dealer. Score stands at: Alan with 12 point(s) and Bob with 7 point(s)
+Alan dealt hand: Ace:Diamonds Three:Hearts Five:Diamonds Seven:Diamonds Nine:Diamonds King:Diamonds
+Bob dealt hand: Four:Hearts Four:Diamonds Five:Clubs Nine:Clubs Ten:Hearts King:Hearts
+Alan throws cards Ace:Diamonds Five:Diamonds into opponent's crib
+Bob throws cards Five:Clubs King:Hearts into his/her crib
+Starter card Five:Spades is cut
+Alan plays card Seven:Diamonds Running total: 7
+Bob plays card Four:Hearts Running total: 11
+Alan plays card Three:Hearts Running total: 14
+Bob plays card Four:Diamonds Running total: 18
+Alan plays card Nine:Diamonds Running total: 27
+Bob says Go! He/She does not have a(n) 4 or less
+Alan scored 1 point for the Go!
+Bob plays card Nine:Clubs Running total: 9
+Alan plays card King:Diamonds Running total: 19
+Bob plays card Ten:Hearts Running total: 29
+Bob scored 1 point for the last card
+Alan hand scored 4 point(s)
+
+	Three:Hearts Seven:Diamonds Nine:Diamonds King:Diamonds
+	Five:Spades
+
+	Points for 15s: 4
+
+Bob hand scored 4 point(s)
+
+	Four:Hearts Four:Diamonds Nine:Clubs Ten:Hearts
+	Five:Spades
+
+	Points for 15s: 2
+	Points for pairs: 2
+
+Bob crib scored 14 point(s)
+
+	Ace:Diamonds Five:Diamonds Five:Clubs King:Hearts
+	Five:Spades
+
+	Points for 15s: 8
+	Points for pairs: 6
+
+Hand 3 begins with Alan as the dealer. Score stands at: Alan with 17 point(s) and Bob with 26 point(s)
+Bob dealt hand: Two:Spades Four:Diamonds Six:Hearts Six:Spades Eight:Hearts Jack:Clubs
+Alan dealt hand: Ace:Clubs Two:Clubs Queen:Hearts Queen:Diamonds Queen:Clubs King:Hearts
+Bob throws cards Two:Spades Jack:Clubs into opponent's crib
+Alan throws cards Queen:Diamonds Queen:Clubs into his/her crib
+Starter card Ace:Hearts is cut
+Bob plays card Eight:Hearts Running total: 8
+Alan plays card Queen:Hearts Running total: 18
+Bob plays card Six:Spades Running total: 24
+Alan plays card Ace:Clubs Running total: 25
+Bob plays card Six:Hearts Running total: 31
+Bob scored 2 points for reaching 31
+Alan plays card Two:Clubs Running total: 2
+Bob plays card Four:Diamonds Running total: 6
+Alan plays card King:Hearts Running total: 16
+Alan scored 1 point for the last card
+Bob hand scored 6 point(s)
+
+	Four:Diamonds Six:Hearts Six:Spades Eight:Hearts
+	Ace:Hearts
+
+	Points for 15s: 4
+	Points for pairs: 2
+
+Alan hand scored 2 point(s)
+
+	Ace:Clubs Two:Clubs Queen:Hearts King:Hearts
+	Ace:Hearts
+
+	Points for pairs: 2
+
+Alan crib scored 2 point(s)
+
+	Two:Spades Jack:Clubs Queen:Diamonds Queen:Clubs
+	Ace:Hearts
+
+	Points for pairs: 2
+
+Hand 4 begins with Bob as the dealer. Score stands at: Alan with 22 point(s) and Bob with 34 point(s)
+Alan dealt hand: Three:Diamonds Four:Hearts Four:Spades Five:Diamonds Queen:Clubs King:Clubs
+Bob dealt hand: Ace:Diamonds Ace:Clubs Four:Diamonds Seven:Spades Ten:Clubs Queen:Spades
+Alan throws cards Queen:Clubs King:Clubs into opponent's crib
+Bob throws cards Ace:Diamonds Ace:Clubs into his/her crib
+Starter card Three:Clubs is cut
+Alan plays card Four:Spades Running total: 4
+Bob plays card Seven:Spades Running total: 11
+Alan plays card Three:Diamonds Running total: 14
+Bob plays card Four:Diamonds Running total: 18
+Alan plays card Four:Hearts Running total: 22
+Alan scored 6 points for 3 Fours in a row
+Bob says Go! He/She does not have a(n) 9 or less
+Alan plays card Five:Diamonds Running total: 27
+Alan scored 1 point for the Go!
+Bob plays card Queen:Spades Running total: 10
+Alan says Go! He/She has no more cards
+Bob plays card Ten:Clubs Running total: 20
+Bob scored 1 point for the last card
+Alan hand scored 20 point(s)
+
+	Three:Diamonds Four:Hearts Four:Spades Five:Diamonds
+	Three:Clubs
+
+	Points for 15s: 4
+	Points for pairs: 4
+	4 run(s) for a total of 12 points
+
+Bob hand scored 0 point(s)
+
+	Four:Diamonds Seven:Spades Ten:Clubs Queen:Spades
+	Three:Clubs
+
+
+Bob crib scored 6 point(s)
+
+	Ace:Diamonds Ace:Clubs Queen:Clubs King:Clubs
+	Three:Clubs
+
+	Points for 15s: 4
+	Points for pairs: 2
+
+Hand 5 begins with Alan as the dealer. Score stands at: Alan with 49 point(s) and Bob with 41 point(s)
+Bob dealt hand: Four:Diamonds Four:Spades Seven:Hearts Seven:Diamonds Eight:Clubs Eight:Spades
+Alan dealt hand: Two:Hearts Four:Hearts Four:Clubs Eight:Hearts Nine:Diamonds Queen:Diamonds
+Bob throws cards Four:Spades Seven:Hearts into opponent's crib
+Alan throws cards Two:Hearts Eight:Hearts into his/her crib
+Starter card Ten:Hearts is cut
+Bob plays card Four:Diamonds Running total: 4
+Alan plays card Four:Hearts Running total: 8
+Alan scored 2 points for 2 Fours in a row
+Bob plays card Eight:Spades Running total: 16
+Alan plays card Four:Clubs Running total: 20
+Bob plays card Eight:Clubs Running total: 28
+Alan says Go! He/She does not have a(n) 3 or less
+Bob scored 1 point for the Go!
+Alan plays card Queen:Diamonds Running total: 10
+Bob plays card Seven:Diamonds Running total: 17
+Alan plays card Nine:Diamonds Running total: 26
+Alan scored 1 point for the last card
+Bob hand scored 6 point(s)
+
+	Four:Diamonds Seven:Diamonds Eight:Clubs Eight:Spades
+	Ten:Hearts
+
+	Points for 15s: 4
+	Points for pairs: 2
+
+Alan hand scored 2 point(s)
+
+	Four:Hearts Four:Clubs Nine:Diamonds Queen:Diamonds
+	Ten:Hearts
+
+	Points for pairs: 2
+
+Alan crib scored 2 point(s)
+
+	Two:Hearts Four:Spades Seven:Hearts Eight:Hearts
+	Ten:Hearts
+
+	Points for 15s: 2
+
+Hand 6 begins with Bob as the dealer. Score stands at: Alan with 56 point(s) and Bob with 48 point(s)
+Alan dealt hand: Ace:Clubs Four:Spades Six:Diamonds Nine:Hearts Queen:Clubs King:Diamonds
+Bob dealt hand: Four:Diamonds Four:Clubs Five:Spades Six:Hearts Seven:Hearts Jack:Diamonds
+Alan throws cards Nine:Hearts Queen:Clubs into opponent's crib
+Bob throws cards Six:Hearts Seven:Hearts into his/her crib
+Starter card Three:Hearts is cut
+Alan plays card Four:Spades Running total: 4
+Bob plays card Jack:Diamonds Running total: 14
+Alan plays card King:Diamonds Running total: 24
+Bob plays card Four:Diamonds Running total: 28
+Alan plays card Ace:Clubs Running total: 29
+Bob says Go! He/She does not have a(n) 2 or less
+Alan scored 1 point for the Go!
+Bob plays card Four:Clubs Running total: 4
+Alan plays card Six:Diamonds Running total: 10
+Bob plays card Five:Spades Running total: 15
+Bob scored 2 points for running value equals 15
+Bob scored 3 points for 3 cards in a row: Four Five Six
+Bob scored 1 point for the last card
+Alan hand scored 2 point(s)
+
+	Ace:Clubs Four:Spades Six:Diamonds King:Diamonds
+	Three:Hearts
+
+	Points for 15s: 2
+
+Bob hand scored 10 point(s)
+
+	Four:Diamonds Four:Clubs Five:Spades Jack:Diamonds
+	Three:Hearts
+
+	Points for 15s: 2
+	Points for pairs: 2
+	2 run(s) for a total of 6 points
+
+Bob crib scored 2 point(s)
+
+	Six:Hearts Seven:Hearts Nine:Hearts Queen:Clubs
+	Three:Hearts
+
+	Points for 15s: 2
+
+Hand 7 begins with Alan as the dealer. Score stands at: Alan with 59 point(s) and Bob with 66 point(s)
+Bob dealt hand: Four:Diamonds Five:Spades Eight:Clubs Nine:Diamonds Jack:Diamonds Jack:Spades
+Alan dealt hand: Three:Diamonds Seven:Diamonds Nine:Hearts Ten:Hearts Ten:Diamonds Jack:Hearts
+Bob throws cards Nine:Diamonds Jack:Diamonds into opponent's crib
+Alan throws cards Seven:Diamonds Nine:Hearts into his/her crib
+Starter card Four:Spades is cut
+Bob plays card Eight:Clubs Running total: 8
+Alan plays card Ten:Hearts Running total: 18
+Bob plays card Four:Diamonds Running total: 22
+Alan plays card Three:Diamonds Running total: 25
+Bob plays card Five:Spades Running total: 30
+Bob scored 3 points for 3 cards in a row: Three Four Five
+Alan says Go! He/She does not have a(n) Ace or less
+Bob scored 1 point for the Go!
+Alan plays card Ten:Diamonds Running total: 10
+Bob plays card Jack:Spades Running total: 20
+Alan plays card Jack:Hearts Running total: 30
+Alan scored 2 points for 2 Jacks in a row
+Alan scored 1 point for the last card
+Bob hand scored 5 point(s)
+
+	Four:Diamonds Five:Spades Eight:Clubs Jack:Spades
+	Four:Spades
+
+	Points for 15s: 2
+	Points for pairs: 2
+	1 point for the right Jack
+
+Alan hand scored 2 point(s)
+
+	Three:Diamonds Ten:Hearts Ten:Diamonds Jack:Hearts
+	Four:Spades
+
+	Points for pairs: 2
+
+Alan crib scored 2 point(s)
+
+	Seven:Diamonds Nine:Hearts Nine:Diamonds Jack:Diamonds
+	Four:Spades
+
+	Points for pairs: 2
+
+Hand 8 begins with Bob as the dealer. Score stands at: Alan with 66 point(s) and Bob with 75 point(s)
+Alan dealt hand: Five:Spades Eight:Spades Ten:Hearts Ten:Clubs Jack:Clubs Jack:Spades
+Bob dealt hand: Ace:Spades Two:Spades Five:Clubs Six:Hearts Six:Diamonds Eight:Clubs
+Alan throws cards Eight:Spades Ten:Hearts into opponent's crib
+Bob throws cards Two:Spades Six:Diamonds into his/her crib
+Starter card Nine:Spades is cut
+Alan plays card Ten:Clubs Running total: 10
+Bob plays card Six:Hearts Running total: 16
+Alan plays card Five:Spades Running total: 21
+Bob plays card Ace:Spades Running total: 22
+Alan says Go! He/She does not have a(n) 9 or less
+Bob plays card Five:Clubs Running total: 27
+Bob scored 1 point for the Go!
+Alan plays card Jack:Spades Running total: 10
+Bob plays card Eight:Clubs Running total: 18
+Alan plays card Jack:Clubs Running total: 28
+Alan scored 1 point for the last card
+Alan hand scored 15 point(s)
+
+	Five:Spades Ten:Clubs Jack:Clubs Jack:Spades
+	Nine:Spades
+
+	Points for 15s: 6
+	Points for pairs: 2
+	2 run(s) for a total of 6 points
+	1 point for the right Jack
+
+Bob hand scored 6 point(s)
+
+	Ace:Spades Five:Clubs Six:Hearts Eight:Clubs
+	Nine:Spades
+
+	Points for 15s: 6
+
+Bob crib scored 5 point(s)
+
+	Two:Spades Six:Diamonds Eight:Spades Ten:Hearts
+	Nine:Spades
+
+	Points for 15s: 2
+	1 run(s) for a total of 3 points
+
+Hand 9 begins with Alan as the dealer. Score stands at: Alan with 82 point(s) and Bob with 87 point(s)
+Bob dealt hand: Six:Spades Seven:Hearts Seven:Clubs Ten:Diamonds Ten:Spades Queen:Hearts
+Alan dealt hand: Ace:Clubs Two:Hearts Five:Diamonds Five:Clubs Eight:Hearts Nine:Clubs
+Bob throws cards Seven:Hearts Queen:Hearts into opponent's crib
+Alan throws cards Two:Hearts Five:Clubs into his/her crib
+Starter card Ace:Spades is cut
+Bob plays card Seven:Clubs Running total: 7
+Alan plays card Eight:Hearts Running total: 15
+Alan scored 2 points for running value equals 15
+Bob plays card Ten:Diamonds Running total: 25
+Alan plays card Ace:Clubs Running total: 26
+Bob says Go! He/She does not have a(n) 5 or less
+Alan plays card Five:Diamonds Running total: 31
+Alan scored 2 points for reaching 31
+Bob plays card Ten:Spades Running total: 10
+Alan plays card Nine:Clubs Running total: 19
+Bob plays card Six:Spades Running total: 25
+Bob scored 1 point for the last card
+Bob hand scored 2 point(s)
+
+	Six:Spades Seven:Clubs Ten:Diamonds Ten:Spades
+	Ace:Spades
+
+	Points for pairs: 2
+
+Alan hand scored 8 point(s)
+
+	Ace:Clubs Five:Diamonds Eight:Hearts Nine:Clubs
+	Ace:Spades
+
+	Points for 15s: 6
+	Points for pairs: 2
+
+Alan crib scored 4 point(s)
+
+	Two:Hearts Five:Clubs Seven:Hearts Queen:Hearts
+	Ace:Spades
+
+	Points for 15s: 4
+
+Hand 10 begins with Bob as the dealer. Score stands at: Alan with 98 point(s) and Bob with 90 point(s)
+Alan dealt hand: Ace:Diamonds Ace:Clubs Eight:Clubs Ten:Clubs Jack:Hearts Queen:Diamonds
+Bob dealt hand: Three:Hearts Seven:Clubs Ten:Spades Queen:Hearts Queen:Clubs King:Clubs
+Alan throws cards Ace:Clubs Jack:Hearts into opponent's crib
+Bob throws cards Three:Hearts Ten:Spades into his/her crib
+Starter card Five:Diamonds is cut
+Alan plays card Eight:Clubs Running total: 8
+Bob plays card Queen:Clubs Running total: 18
+Alan plays card Queen:Diamonds Running total: 28
+Alan scored 2 points for 2 Queens in a row
+Bob says Go! He/She does not have a(n) 3 or less
+Alan plays card Ace:Diamonds Running total: 29
+Alan scored 1 point for the Go!
+Bob plays card Seven:Clubs Running total: 7
+Alan plays card Ten:Clubs Running total: 17
+Bob plays card Queen:Hearts Running total: 27
+Alan says Go! He/She has no more cards
+Bob scored 1 point for the Go!
+Alan says Go! He/She has no more cards
+Bob plays card King:Clubs Running total: 10
+Bob scored 1 point for the last card
+Alan hand scored 4 point(s)
+
+	Ace:Diamonds Eight:Clubs Ten:Clubs Queen:Diamonds
+	Five:Diamonds
+
+	Points for 15s: 4
+
+Bob hand scored 8 point(s)
+
+	Seven:Clubs Queen:Hearts Queen:Clubs King:Clubs
+	Five:Diamonds
+
+	Points for 15s: 6
+	Points for pairs: 2
+
+Bob crib scored 4 point(s)
+
+	Ace:Clubs Three:Hearts Ten:Spades Jack:Hearts
+	Five:Diamonds
+
+	Points for 15s: 4
+
+Hand 11 begins with Alan as the dealer. Score stands at: Alan with 105 point(s) and Bob with 104 point(s)
+Bob dealt hand: Ace:Diamonds Three:Spades Four:Hearts Seven:Diamonds Ten:Diamonds King:Diamonds
+Alan dealt hand: Ace:Clubs Six:Diamonds Eight:Clubs Nine:Diamonds Queen:Diamonds Queen:Spades
+Bob throws cards Ace:Diamonds Ten:Diamonds into opponent's crib
+Alan throws cards Ace:Clubs Six:Diamonds into his/her crib
+Starter card Two:Hearts is cut
+Bob plays card King:Diamonds Running total: 10
+Alan plays card Nine:Diamonds Running total: 19
+Bob plays card Seven:Diamonds Running total: 26
+Alan says Go! He/She does not have a(n) 5 or less
+Bob plays card Three:Spades Running total: 29
+Bob scored 1 point for the Go!
+Alan plays card Queen:Diamonds Running total: 10
+Bob plays card Four:Hearts Running total: 14
+Alan plays card Queen:Spades Running total: 24
+Bob says Go! He/She has no more cards
+Alan scored 1 point for the Go!
+Bob says Go! He/She has no more cards
+Alan plays card Eight:Clubs Running total: 8
+Alan scored 1 point for the last card
+Bob hand scored 5 point(s)
+
+	Three:Spades Four:Hearts Seven:Diamonds King:Diamonds
+	Two:Hearts
+
+	Points for 15s: 2
+	1 run(s) for a total of 3 points
+
+Alan hand scored 2 point(s)
+
+	Eight:Clubs Nine:Diamonds Queen:Diamonds Queen:Spades
+	Two:Hearts
+
+	Points for pairs: 2
+
+Alan crib scored 2 point(s)
+
+	Ace:Diamonds Ace:Clubs Six:Diamonds Ten:Diamonds
+	Two:Hearts
+
+	Points for pairs: 2
+
+Hand 12 begins with Bob as the dealer. Score stands at: Alan with 111 point(s) and Bob with 110 point(s)
+Alan dealt hand: Ace:Diamonds Four:Diamonds Four:Clubs Four:Spades Six:Clubs Queen:Spades
+Bob dealt hand: Ace:Spades Two:Spades Eight:Hearts Nine:Clubs Jack:Spades Queen:Hearts
+Alan throws cards Ace:Diamonds Six:Clubs into opponent's crib
+Bob throws cards Two:Spades Queen:Hearts into his/her crib
+Starter card Nine:Spades is cut
+Alan plays card Four:Diamonds Running total: 4
+Bob plays card Nine:Clubs Running total: 13
+Alan plays card Four:Clubs Running total: 17
+Bob plays card Jack:Spades Running total: 27
+Alan plays card Four:Spades Running total: 31
+Alan scored 2 points for reaching 31
+Bob plays card Ace:Spades Running total: 1
+Alan plays card Queen:Spades Running total: 11
+Bob plays card Eight:Hearts Running total: 19
+Bob scored 1 point for the last card
+Alan hand scored 6 point(s)
+
+	Four:Diamonds Four:Clubs Four:Spades Queen:Spades
+	Nine:Spades
+
+	Points for pairs: 6
+
+Bob hand scored 3 point(s)
+
+	Ace:Spades Eight:Hearts Nine:Clubs Jack:Spades
+	Nine:Spades
+
+	Points for pairs: 2
+	1 point for the right Jack
+
+Bob crib scored 2 point(s)
+
+	Ace:Diamonds Two:Spades Six:Clubs Queen:Hearts
+	Nine:Spades
+
+	Points for 15s: 2
+
+Hand 13 begins with Alan as the dealer. Score stands at: Alan with 119 point(s) and Bob with 116 point(s)
+Bob dealt hand: Two:Diamonds Three:Hearts Five:Hearts Five:Clubs Jack:Hearts Queen:Diamonds
+Alan dealt hand: Two:Spades Three:Diamonds Six:Clubs Seven:Clubs Ten:Hearts Jack:Clubs
+Bob throws cards Two:Diamonds Jack:Hearts into opponent's crib
+Alan throws cards Two:Spades Three:Diamonds into his/her crib
+Starter card Two:Clubs is cut
+Bob plays card Queen:Diamonds Running total: 10
+Alan plays card Ten:Hearts Running total: 20
+Bob plays card Five:Hearts Running total: 25
+Alan plays card Six:Clubs Running total: 31
+Alan scored 2 points for reaching 31
+Alan wins the game by 5 point(s)
