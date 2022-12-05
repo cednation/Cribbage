@@ -6,9 +6,8 @@
     {
         private readonly List<CribbageEvent> cribbageEvents = new();
 
-        public IReadOnlyList<CribbageEvent> CribbageEvents => this.cribbageEvents.AsReadOnly();
+        public IReadOnlyList<CribbageEvent> ReportedEvents => this.cribbageEvents.AsReadOnly();
 
-        public delegate void CribbageEventHandler(CribbageReporter reporter, CribbageEvent cribbageEvent);
         public event CribbageEventHandler? CribbageEventNotification;
 
         protected void ReportCribbageEvent(CribbageEvent cribbageEvent)
@@ -18,7 +17,7 @@
         }
     }
 
-    public class ThePlayReporter : CribbageReporter
+    public class ThePlayReporter : CribbageReporter, IThePlayReporter
     {
         public void ReportCardPlayed(IPlayer player, Card card, int runningTotal)
         {
@@ -89,6 +88,7 @@
                     textMessage = MakeTextMessage("for the last card");
                     e = new ScorePlayPointsEvent(player, 1, scoreType, textMessage);
                     break;
+                case ThePlayScoreType.JackStarterCut: // This event occurs before the play, but is counted in a scoring type
                 default:
                     throw new NotImplementedException($"Play score type {scoreType} not implemented");
             }
@@ -97,9 +97,9 @@
         }
     }
 
-    public class HandReporter : CribbageReporter
+    public class HandReporter : CribbageReporter, IHandReporter
     {
-        public ThePlayReporter? PlayReporter { get; }
+        public IThePlayReporter? PlayReporter { get; }
 
         public HandReporter()
         {
@@ -203,9 +203,9 @@
         }
     }
 
-    public class GameReporter : CribbageReporter
+    public class GameReporter : CribbageReporter, IGameReporter
     {
-        public HandReporter? CribbageHandReporter { get; }
+        public IHandReporter? CribbageHandReporter { get; }
 
         public GameReporter(){}
 
@@ -227,6 +227,13 @@
             string textMessage = $"{cutWinner.Name} wins the deal with a cut of {cutWinnerRank} vs {cutLoserRank}";
 
             var e = new CutForDealEvent(cutWinner, cutWinnerRank, cutLoserRank, textMessage);
+            base.ReportCribbageEvent(e);
+        }
+
+        public void ReportCutForDealDraw(Rank tieRank)
+        {
+            string textMessage = $"The players each cut a(n) {tieRank}. Shuffle the deck and cut for draw again";
+            var e = new CutForDealEvent(tieRank, textMessage);
             base.ReportCribbageEvent(e);
         }
 

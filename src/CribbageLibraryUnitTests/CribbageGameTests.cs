@@ -78,28 +78,14 @@
             player2.SetupGet(x => x.Name).Returns("P1");
             player2.Setup(x => x.ResetHand()).Throws(new GameWinningSignalException(player2.Object));
 
-            bool cutWinnerFound = false;
-            var reporter = new GameReporter();
-            reporter.CribbageEventNotification += (r, e) =>
-            {
-                if (e.EventType == CribbageEventType.CutForDeal)
-                {
-                    var cutEvent = (CutForDealEvent)e;
-                    cutWinnerFound = true;
-                    var cutWinner = cutEvent.Player;
-                    cutEvent.WinningCut.Should().Be(Rank.Ace);
-                    cutEvent.LosingCut.Should().Be(Rank.Jack);
-
-                    // Assuming first player cut first, then first player won the cut.
-                    cutWinner.Should().Be(player1.Object);
-                }
-            }; 
-
+            var gameReporterMock = new Mock<IGameReporter>(MockBehavior.Loose);
             var game = new CribbageGame(player1.Object, player2.Object, mockDeckFactory.Object);
-            game.Play(CribbageGame.FirstDealerChoice.CutForDeal, reporter);
+            game.Play(CribbageGame.FirstDealerChoice.CutForDeal, gameReporterMock.Object);
 
-            // Verify the reporter event notification was hit.
-            cutWinnerFound.Should().BeTrue();
+            gameReporterMock.Verify(x => x.ReportCutForDealDraw(Rank.Eight), Times.Once);
+            gameReporterMock.Verify(x => x.ReportCutForDealDraw(It.IsAny<Rank>()), Times.Once);
+            gameReporterMock.Verify(x => x.ReportCutForDeal(player1.Object, Rank.Ace, Rank.Jack), Times.Once);
+            gameReporterMock.Verify(x => x.ReportCutForDeal(It.IsAny<IPlayer>(), It.IsAny<Rank>(), It.IsAny<Rank>()), Times.Once);
 
             // winning signal should have happened right away
             game.NumHands.Should().Be(1);

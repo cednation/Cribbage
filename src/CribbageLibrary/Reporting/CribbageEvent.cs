@@ -45,7 +45,6 @@
 
     public class CutForDealEvent : CribbageEvent
     {
-        public new IPlayer Player => base.Player!;
         public Rank WinningCut { get; }
         public Rank LosingCut { get; }
 
@@ -54,6 +53,13 @@
         {
             this.WinningCut = cutWinnerRank;
             this.LosingCut = cutLoserRank;
+        }
+
+        public CutForDealEvent(Rank tieRank, string textMessage)
+            : base(CribbageEventType.CutForDeal, textMessage)
+        {
+            this.WinningCut = tieRank;
+            this.LosingCut = tieRank;
         }
     }
 

@@ -25,7 +25,7 @@
             this.deckFactory = deckFactory;
         }
 
-        public void Play(FirstDealerChoice dealerChoice = FirstDealerChoice.FirstPlayer, GameReporter? reporter = null)
+        public void Play(FirstDealerChoice dealerChoice = FirstDealerChoice.FirstPlayer, IGameReporter? reporter = null)
         {
             reporter?.ReportBeginGame(this.FirstPlayer, this.SecondPlayer);
 
@@ -71,7 +71,7 @@
             }
         }
 
-        private bool CutForDeal(GameReporter? reporter)
+        private bool CutForDeal(IGameReporter? reporter)
         {
             while (true)
             {
@@ -94,7 +94,11 @@
 
                     return firstPlayerDealer;
                 }
-                // else shuffle and cut again!
+                else
+                {
+                    // Shuffle and cut again!
+                    reporter?.ReportCutForDealDraw(firstPlayerCutCard.Rank);
+                }
             }
         }
     }

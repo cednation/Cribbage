@@ -10,7 +10,7 @@
         IReadOnlyCollection<Card> Crib { get; }
         Card Starter { get; }
 
-        void Run(HandReporter? reporter);
+        void Run(IHandReporter? reporter);
     }
 
     public class CribbageHand : ICribbageHand
@@ -21,7 +21,7 @@
         public IPlayer Dealer { get; }
         public IPlayer Pone { get; }
 
-        public IReadOnlyCollection<Card> Crib => crib;
+        public IReadOnlyCollection<Card> Crib => crib.AsReadOnly();
         public Card Starter { get; protected set; }
 
         public CribbageHand(IPlayer dealer, IPlayer pone, IDeck deck)
@@ -31,7 +31,7 @@
             this.deck = deck;
         }
 
-        public void Run(HandReporter? reporter = null)
+        public void Run(IHandReporter? reporter = null)
         {
             this.Dealer.ResetHand();
             this.Pone.ResetHand();

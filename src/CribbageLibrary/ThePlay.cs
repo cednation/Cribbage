@@ -25,7 +25,7 @@
 
         public IEnumerable<PlayedCard> PlayedCards => this.completePlayedCards;
 
-        public void Run(ThePlayReporter? reporter = null)
+        public void Run(IThePlayReporter? reporter = null)
         {
             while (this.totalNumPlayedCards < 8)
             {
@@ -98,7 +98,7 @@
             this.goPlayer = null;
         }
 
-        private void CheckForScore(IPlayer currentPlayer, ThePlayReporter? reporter)
+        private void CheckForScore(IPlayer currentPlayer, IThePlayReporter? reporter)
         {
             // Check for 15
             if (this.runningTotal == 15)

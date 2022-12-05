@@ -1,16 +1,17 @@
 ﻿namespace Cribbage
 {
     using System;
+    using System.ComponentModel;
 
-    public readonly struct Card : IComparable<Card>
+    public readonly struct Card : IComparable<Card>, IEquatable<Card>
     {
         public Card(Rank rank, Suit suit)
         {
             if (!Enum.IsDefined(rank))
-                throw new ArgumentOutOfRangeException(nameof(rank), rank, "Rank parameter is not valid");
+                throw new InvalidEnumArgumentException(nameof(rank), (int)rank, typeof(Rank));
 
             if (!Enum.IsDefined(suit))
-                throw new ArgumentOutOfRangeException(nameof(suit), suit, "Suit parameter is not valid");
+                throw new InvalidEnumArgumentException(nameof(suit), (int)suit, typeof(Suit));
 
             this.Rank = rank;
             this.Suit = suit;
@@ -20,7 +21,7 @@
         public static int ConvertRankToValue(Rank rank)
         {
             if (!Enum.IsDefined(rank))
-                throw new ArgumentOutOfRangeException(nameof(rank), rank, "Rank parameter is not valid");
+                throw new InvalidEnumArgumentException(nameof(rank), (int)rank, typeof(Rank));
 
             int value = (int)rank;
             if (value > 10)
@@ -53,6 +54,33 @@
         {
             return $"{this.Rank}:{this.Suit}";
         }
+
+        #region Equals
+        public static bool operator ==(Card c1, Card c2)
+        {
+            return c1.Equals(c2);
+        }
+
+        public static bool operator !=(Card c1, Card c2)
+        {
+            return !(c1 == c2);
+        }
+
+        public bool Equals(Card other)
+        {
+            return Suit == other.Suit && Rank == other.Rank;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Card other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine((int)Suit, (int)Rank);
+        }
+        #endregion
     }
 
     public readonly struct PlayedCard

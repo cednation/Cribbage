@@ -1,17 +1,16 @@
-﻿using Cribbage;
-using Cribbage.Reporting;
+﻿global using Cribbage;
+global using Cribbage.Reporting;
 using CribbageConsole;
 
 var player1 = new Player("Alan", new PlayerHandFactory());
+//var player1 = new Player("Alan", new UserConsoleHandFactory());
 var player2 = new Player("Bob", new PlayerHandFactory());
 
 var reporter = new GameReporter(new HandReporter(new ThePlayReporter()));
-using var fileLogger = new CribbageGameFileLogger(@"E:\MyProjects\CribbageGit\Cribbage\gameLog.txt");
 
-reporter.CribbageEventNotification += fileLogger.WriteCribbageEvent;
-reporter.CribbageHandReporter!.CribbageEventNotification += fileLogger.WriteCribbageEvent;
-reporter.CribbageHandReporter!.PlayReporter!.CribbageEventNotification += fileLogger.WriteCribbageEvent;
-
+string gameLogFilePath = Path.ChangeExtension(Path.GetTempFileName(), ".txt");
+using var fileLogger = new CribbageGameFileLogger(gameLogFilePath);
+fileLogger.SubscribeToReporter(reporter);
 fileLogger.Start();
 
 Console.WriteLine("Starting a game between Alan and Bob");
